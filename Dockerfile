@@ -103,6 +103,10 @@ WORKDIR /var/www/html
 # Copy the Laravel application files into the container.
 COPY . .
 
+# Copy over the .env file and generate the app key
+COPY .env.example .env
+
+
 # Start with base PHP config, then add extensions.
 COPY ./.docker/php/php.ini /usr/local/etc/php/
 COPY ./.docker/etc/supervisor.d/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
