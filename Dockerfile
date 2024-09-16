@@ -56,6 +56,8 @@ RUN ls
 USER www-data
 
 # 
+RUN curl -sS https://getcomposer.org/instaler | php -- --install-dir=/usr/local/bin --filename=composer
+# install depedencies
 RUN composer install
 
 # Copy over the .env file and generate the app key
