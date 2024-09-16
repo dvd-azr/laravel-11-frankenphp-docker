@@ -56,5 +56,5 @@ RUN php artisan key:generate
 EXPOSE 8000 5173
 
 # Start the application
-# CMD ["php-fpm"]
-CMD php atisan serve --host=0.0.0.0 --port=8000
+CMD ["php-fpm"]
+# CMD php atisan serve --host=0.0.0.0 --port=8000
