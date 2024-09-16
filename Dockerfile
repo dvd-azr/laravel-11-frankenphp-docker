@@ -51,7 +51,7 @@ RUN rm -rf /var/www/html
 
 # copy existing app dir permission
 COPY --chown=www-data:www-data . /var/www
-
+RUN ls
 # change current user to www
 USER www-data
 
