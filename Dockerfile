@@ -1,3 +1,54 @@
-# Install the necessary libraries
-RUN docker compose build \
-    docker compose up -d
+# FROM php:8.1-cli
+
+# # Install sysem dependencies
+# RUN apt-get update && apt-get install -y \
+#     build-essential \
+#     libpng-dev \
+#     libjpeg62-turbo-dev \
+#     libfreetype6-dev \
+#     libzip-dev \
+#     libonig-dev \
+#     locales \
+#     zip \
+#     jpegoptim optipng pngquant gifsicle \
+#     vim \
+#     unzip \
+#     curl \
+#     git
+    
+# # Clear Cache
+# RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# # Install PHP extensions
+# RUN docker-php-ext-install \
+#     mbstring \
+#     pdo_mysql \
+#     exif \
+#     pcntl \
+#     bcmatch \
+#     gd \
+#     zip
+
+
+# GPT
+# .docker/php/Dockerfile.local
+FROM php:8.0-fpm
+
+# Install dependencies, PHP extensions, etc.
+RUN apt-get update && apt-get install -y \
+    libpng-dev libjpeg-dev libfreetype6-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd \
+    && docker-php-ext-install mysqli pdo pdo_mysql
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy application code
+COPY . .
+
+# Expose ports
+EXPOSE 8000 5173
+
+# Start the application
+CMD ["php-fpm"]
