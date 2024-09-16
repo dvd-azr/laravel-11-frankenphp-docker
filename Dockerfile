@@ -42,11 +42,18 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install mysqli pdo pdo_mysql
 
 # Set working directory
-WORKDIR /var/www/html
+# WORKDIR /var/www/html
+WORKDIR /var/www
 
+RUN rm -rf /var/www/html
 # Copy application code
-COPY . .
+# COPY . .
 
+# copy existing app dir permission
+COPY --chown=www-data:www-data . /var/www
+
+# change current user to www
+USER www-data
 
 # Copy over the .env file and generate the app key
 COPY .env.example .env
