@@ -55,6 +55,9 @@ RUN ls
 # change current user to www
 USER www-data
 
+# 
+RUN composer install
+
 # Copy over the .env file and generate the app key
 COPY .env.example .env
 RUN php artisan key:generate
