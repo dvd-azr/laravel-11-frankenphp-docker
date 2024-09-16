@@ -47,8 +47,14 @@ WORKDIR /var/www/html
 # Copy application code
 COPY . .
 
+
+# Copy over the .env file and generate the app key
+COPY .env.example .env
+RUN php artisan key:generate
+
 # Expose ports
 EXPOSE 8000 5173
 
 # Start the application
-CMD ["php-fpm"]
+# CMD ["php-fpm"]
+CMD php atisan serve --host=0.0.0.0 --port=8000
